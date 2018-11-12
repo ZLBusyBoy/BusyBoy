@@ -3,7 +3,7 @@
 <img src="_media/icon-left-font-monochrome-black.png"  width="400" />
 
 
-> `Java Core Sprout`：处于萌芽阶段的 Java 核心知识库。
+> `BusyBoy`：刚搭的，先玩玩，可以先看看。
 
-[GitHub](https://github.com/crossoverJie/JCSprout)
+[GitHub](https://www.busyboy.club)
 [Get Started](collections/ArrayList.md)
