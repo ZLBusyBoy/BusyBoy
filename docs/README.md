@@ -12,7 +12,7 @@
 <br>
 
 
-`Java Core Sprout`：处于萌芽阶段的 `Java` 核心知识库。
+`BusyBoy`：刚搭的，先玩玩，可以先看看。
 
 <br/>
 
