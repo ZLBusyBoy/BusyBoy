@@ -21,7 +21,7 @@
 
 ----------
 # CONTACT
-> - [微博](http://weibo.com/crossoverJie "微博")
+> - [微博](https://weibo.com/u/2718958851 "微博")
 > - [GitHub](https://github.com/ZLBusyBoy/BusyBoy "github")
 > - [crossoverJie@gmail.com](mailto:crossoverjie@gmail.com)
 
