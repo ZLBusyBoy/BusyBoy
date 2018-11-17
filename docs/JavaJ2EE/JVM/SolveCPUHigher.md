@@ -1,10 +1,5 @@
-﻿#【JVM调优系列】----CPU过高的分析与解决方案
-<table>
-	<tr>
-		<td bgcolor=#406CA4><font size=4 color='white' face='宋体'>问题描述</font></td>
-	</tr>
-</table>
-&nbsp;&nbsp;&nbsp;&nbsp;<font  size =3></font>
+﻿# CPU过高的分析与解决方案
+## 问题描述
 &nbsp;&nbsp;&nbsp;&nbsp;<font  size =3>服务器是8核32G的，也就是说同时可用的共有8个CPU，一个CPU可以使用高达100%，8个CPU的话可以高达800%。前两天发现了一个CPU过高的问题，平时项目运行CPU也就是在10%，但是前两天发布之后突然发现CPU一直在200%左右打转，一直稳高不降。下面的例子只是参考（当时的情况没有截图o(╯□╰)o）。执行**`top`**命令查看占用CPU高的进程。</font>
 
 ```
@@ -29,12 +24,7 @@ KiB Swap:        0 total,        0 used,        0 free.  4187724 cached Mem
 
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;<font  size =3></font>
-<table>
-	<tr>
-		<td bgcolor=#406CA4><font size=4 color='white' face='宋体'>解决方案</font></td>
-	</tr>
-</table>
+## 解决方案
 &nbsp;&nbsp;&nbsp;&nbsp;<font  size =3></font>
 &nbsp;&nbsp;&nbsp;&nbsp;<font  size =3>由上图我们可以看到**`Java`**进程占用的CPU高达600%，但具体是因为那些任务造成的在这是无法直接看出来的。</font>
 

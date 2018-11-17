@@ -1,11 +1,7 @@
-﻿#理解Redis内存
+﻿# 理解Redis内存
 &nbsp;&nbsp;&nbsp;&nbsp;<font  size =3>Redis的所有的数据都是存在了内存中的，虽然现在内存越来越便宜，但是跟平时电脑上装的硬盘相比，硬盘的价格就是个渣渣。内存还是非常宝贵的,就拿我的一台腾讯云的服务器来说，目前是1核2G的，但是要想升级到4G，就得需要多掏1000大洋。这些钱感觉我都可以买个1T的硬盘了。。。这就是差距。so，如何合理高效的利用Redis内存就变得非常的重要了。首先我们应该知道Redis的内存主要消耗在什么地方，其次是如何管理内存，最后才是怎么做Redis的内存优化。这样才能用更少的内存，存储更多的数据，降低成本。</font>
-&nbsp;&nbsp;&nbsp;&nbsp;<font  size =3></font>
-<table>
-	<tr>
-		<td bgcolor=#406CA4><font size=4 color='white' face='宋体'>1、内存消耗</font></td>
-	</tr>
-</table>
+
+## 内存消耗
 
 &nbsp;&nbsp;&nbsp;&nbsp;<font  size =3>如何查看Redis中内存的消耗情况哪？可以通过 `info`命令，查看Redis内存消耗的相关指标，从而有助于更好的分析内存。执行命令之后有这么几个重要的指标：</font>
 |属性名|属性说明|
@@ -33,11 +29,7 @@ mem_allocator:libc
 > `mem_fragmentation_ratio > 1` 说明多出来的部分名没有用于数据存储，而是被内存碎片所消耗，相差越大，说明内存碎片率越严重。
 > `mem_fragmentation_ratio < 1`  一般出现在Redis内存交换（Swap）到硬盘导致（`used_memory > 可用最大内存`时，Redis会把旧的和不适用的数据写入到硬盘，这块空间就叫Swap空间），出现这种情况需要格外关注，硬盘速度远远慢于内存，Redis性能就会变得很差，甚至僵死。
 
-<table>
-	<tr>
-		<td bgcolor=#406CA4><font size=3 color='white' face='宋体'>1.1、内存消耗的划分</font></td>
-	</tr>
-</table>
+### 内存消耗的划分
 &nbsp;&nbsp;&nbsp;&nbsp;<font  size =3>Redis的内存主要包括：对象内存+缓冲内存+自身内存+内存碎片。</font>
 ![这里写图片描述](https://img-blog.csdn.net/20180823213024994?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTA4NTM3MDE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
 
@@ -58,11 +50,7 @@ mem_allocator:libc
 ###### 4、自身内存
 &nbsp;&nbsp;&nbsp;&nbsp;<font  size =3>主要指AOF/RDB重写时Redis创建的子进程内存的消耗，Linux具有写时复制技术（copy-on-write），父子进程会共享相同的物理内存页，当父进程写请求时会对需要修改的页复制出一份副本来完成写操作。</font>
 &nbsp;&nbsp;&nbsp;&nbsp;<font  size =3></font>
-<table>
-	<tr>
-		<td bgcolor=#406CA4><font size=4 color='white' face='宋体'>2、管理内存</font></td>
-	</tr>
-</table>
+## 管理内存
 
 &nbsp;&nbsp;&nbsp;&nbsp;<font  size =3>**设置上限**</font>
 &nbsp;&nbsp;&nbsp;&nbsp;<font  size =3></font>
@@ -97,11 +85,7 @@ config set maxmemory 6GB
 |`volatile-random`|针对带有过期属性的键，进行删除操作，直到腾出足够空间|
 |`volatile-ttl`|根据键值对象的ttl属性，删除最近将要过期数据。如果没有，则回退到noviction策略|
 
-<table>
-	<tr>
-		<td bgcolor=#406CA4><font size=4 color='white' face='宋体'>3、内存优化</font></td>
-	</tr>
-</table>
+## 内存优化
 
 &nbsp;&nbsp;&nbsp;&nbsp;<font  size =3> **Hashtable**</font>
 &nbsp;&nbsp;&nbsp;&nbsp;<font  size =3></font>
