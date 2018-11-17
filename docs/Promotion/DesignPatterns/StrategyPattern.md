@@ -5,8 +5,11 @@
 策略模式的定义：
 >策略模式是对算法的封装，把使用算法的责任和算法本身分隔开，委派给不同的对象管理。策略模式通常把一系列的算法包装到一系列的策略类里面，作为一个抽象策略类的子类。
 
-![](http://img.blog.csdn.net/20170127093205513?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvemx0czAwMA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+<div align="center">  
 
+<img src="png/DesignPatterns/strategy.png" width=""/> 
+<br/>
+</div>
 ## 解决了我们的什么问题？
 
 
