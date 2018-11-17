@@ -1,4 +1,4 @@
-﻿
+﻿#策略模式和Spring的结合
 <table>
 	<tr>
 		<td bgcolor=#406CA4><font size=4 color='white' face='宋体'>一、策略模式</font></td>
