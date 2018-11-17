@@ -11,7 +11,7 @@
   - [理解Redis内存](DB/redis/RedisMemory.md)
   - [浅析Redis存储数据时格式的设计](DB/redis/RedisSaveDesign.md)
 
-## 自我提升
+##  :musical_note:自我提升
 
 - ### 设计模式
   - [观察者模式和Spring的结合](Promotion/DesignPatterns/ObserverPattern.md)
