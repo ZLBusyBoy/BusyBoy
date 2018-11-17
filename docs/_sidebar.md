@@ -10,7 +10,7 @@
   
 # Java + J2EE
 ## JVM
-  - [【JVM调优系列】----CPU过高的分析与解决方案](JavaJ2EE/JVM/The solution of CPU higher.md)
+  - [CPU过高的分析与解决方案](JavaJ2EE/JVM/SolveCPUHigher.md)
 
   
 
