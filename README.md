@@ -13,8 +13,6 @@
 ## 自我提升
 
 - ### 设计模式
-  - [观察者模式和Spring的结合](Promotion/DesignPatterns/ObserverPattern.md)
-  - [策略模式和Spring的结合](Promotion/DesignPatterns/StrategyPattern.md)
 
 ## Java + J2EE
 
