@@ -54,6 +54,7 @@ public final class String
     }
   }
 ```
+
 通过上边的这段代码你会发现：
 
 > 1、首先`String`类本身是被`final`修饰过的，表明该类无法进行扩展，无法创建子类。因此类中声明的方法则不会被重写。
@@ -74,6 +75,7 @@ public final class String
 |`People`|表示一个人的类|
 |`PeopleThread`|表示`People`实例的线程的类|
 |`Main`|测试程序行为的类|
+
 下边看下每个类的示例代码，`People`类，类以及成员变量均被`final`修饰，同时只能通过构造函数来对成员变量赋值，没有`setter`方法：
 
 ```java
@@ -131,6 +133,7 @@ public class PeopleThread extends Thread{
 }
 
 ```
+
 `Main`类：
 
 ```java
@@ -161,6 +164,7 @@ Thread-1 prints People{sex='男', age=27, address='北京'}
 Thread-1 prints People{sex='男', age=27, address='北京'}
 Thread-1 prints People{sex='男', age=27, address='北京'}
 ```
+
 通过结果就可以发现，无论启动多少个线程，打印的结果其实都是一样的。因为`People`类本身在**实例被创建且字段初始化之后，字段的值就不会再被修改**，实例的状态在初始化之后就不会再发生改变，因此也不需要在进行加锁、解锁等操作。因为想破坏也破坏不了。但是有一点比较难的就是如果确保`Immutability`，因为在对类的创建过程中少个`final`，多个`setter`等，那么就无法保证类的`Immutability`。
 
 # 何时使用呢？
