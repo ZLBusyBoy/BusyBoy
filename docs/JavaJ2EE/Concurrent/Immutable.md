@@ -1,4 +1,4 @@
-﻿@[toc]
+﻿
 # Immutable
 
 &nbsp;&nbsp;&nbsp;&nbsp;`Immutable`是什么意思？不变的、不发生改变的意思。在`JDK`中有很多的类被设计成不可变的，举个大家经常用到的类`java.lang.String`，`String`类被设计成不可变。`String`所表示的字符串的内容绝对不会发生变化。因此，在多线程的情况下，`String`类无需进行互斥处理，不用给方法进行`synchronized`或者`lock`等操作，进行上锁、争抢锁、解锁等流程也是有一定性能损耗的。因此，若能合理的利用`Immutable`，一定对性能的提升有很大帮助。
