@@ -34,7 +34,7 @@ mem_allocator:libc
 ### 内存消耗的划分
 Redis的内存主要包括：对象内存+缓冲内存+自身内存+内存碎片。
 
-![这里写图片描述](/png/redis/redis-memory-sort.jpg)
+![这里写图片描述](http://pj9b1v2hm.bkt.clouddn.com/redis-memory-sort.jpg)
 
 
 ###### 1、对象内存
@@ -75,7 +75,7 @@ Redis的内存回收机制主要体现在两个方面上：
 **2. 定时任务删除**
 Redis内部维护了一个定时任务，默认是每秒运行十次。删除的逻辑如下图：
 
-![这里写图片描述](/png/redis/redis-task.png)
+![这里写图片描述](http://pj9b1v2hm.bkt.clouddn.com/redis-task.png)
 **内存溢出控制策略**
 当Redis使用的内存达到上限`maxmemory`后，就会根据`maxmemory-policy`设置的相关策略进行对应的操作，Redis支持一下6中策略：
 
@@ -93,10 +93,10 @@ Redis内部维护了一个定时任务，默认是每秒运行十次。删除的
 
 Redis所有的数据存储都是Key-Value的数据类型。整体的结构是Redis自己实现的hashtable，Redis有两个hashtable存在，但是只有其中一个是用来存数据的，另一个hashtable的存在是为了在扩容的时候用的。通过采用渐进式的方式，把旧的hashtable中的数据逐渐的复制到另外一个hashtable中去。为什么采用渐进式呢？因为Redis是单线程的，扩容一直数据的迁移是很耗费时间的，所以迁移的过程是不能对Redis的其他使用造成影响。所以采用渐进式。
 
-![这里写图片描述](/png/redis/redis-rehash.png)
+![这里写图片描述](http://pj9b1v2hm.bkt.clouddn.com/redis-rehash.png)
 因此，这个hashtable的结构就变得很重要了，hashtable的设计时数组加链表的方式实现，一维是数组结构，二维是一个链表结构，在一维数组中存的是指向链表中第一条数据的指针。
 
-![这里写图片描述](/png/redis/redis-hashtable.png)
+![这里写图片描述](http://pj9b1v2hm.bkt.clouddn.com/redis-hashtable.png)
 
 ```
 //数组结构
@@ -116,7 +116,7 @@ struct dictEntry {
 **redisObect对象**
 Redis中所有的值对象内部定义都是redisObject结构体。结构如下图：
 
-![这里写图片描述](/png/redis/redis-object.png)
+![这里写图片描述](http://pj9b1v2hm.bkt.clouddn.com/redis-object.png)
 
 ```
 struct RedisObject {
@@ -141,7 +141,7 @@ struct RedisObject {
 **简单动态字符串（simple dynamic string,SDS）**
 在Redis中，字符串对象时经常用到的，举个例子：执行一个list的命令，`lpush  queue "redis"  "list" "queue"`，首先会创建`queue`键字符串，然后创建链表对象，链表对象内在包含三个字符串对象。其他的几种结构在存储数据的时候也离不开字符串类型。Redis中字符串的结构也是Redis自己定义的结构，结构图如下：
 
-![这里写图片描述](/png/redis/redis-SDS.png)
+![这里写图片描述](http://pj9b1v2hm.bkt.clouddn.com/redis-SDS.png)
 
 ```
 struct SDS {
@@ -167,21 +167,21 @@ SDS有几个特点：
 
 下面奉上一个简单的例子，比如在Redis中set一个简单点的值，在Redis内存中的结构图如下（参考样例）：
 
-![这里写图片描述](/png/redis/redis-dictentry.png)
+![这里写图片描述](http://pj9b1v2hm.bkt.clouddn.com/redis-dictentry.png)
 
 **编码优化**
 Redis有5中不同的存储格式：`String`，`List`，`Hash`，`Set`，`Zset`，但是不同的类型，在存储到Redis中时会有不同的底层数据结构实现。类似集合`ArrayList`的底层实现是数组，而`Linkedlist`的底层实现是链表结构一样，编码不同，则存储是占用的内存以及读写的效率也是不同的。下图是Redis不同结构采用的不同的编码列表：
 
-![这里写图片描述](/png/redis/redis-encode.png)
+![这里写图片描述](http://pj9b1v2hm.bkt.clouddn.com/redis-encode.png)
 
 **`embstr`与`raw`的区别**
 在讲两种编码格式的区别之前，先讲点其他的，现代的计算机的结构上边在CPU和内存之间存在一个缓存结构，用来协调CPU的高效和访存的相对缓慢的矛盾。平时听到的L1 Cache，L2 Cache，L3 Cache就是这个缓存。当CPU要访问内存之前会先在缓存里面找一找看有没有，如果没有，就去内存找，找到之后放到缓存里面。这个缓存的最小单位一般是64字节，一次性缓存连续的64个字节，这个最小的单位称为`缓存行`。
 在Redis中，每个`value`对象都有一个`redisObject`对象头，对于Redis的字符串对象，当读取数据时，拿到`*ptr`指针，然后再去找到指向的SDS对象，如果这个对象距离很远，就会影响Redis读取的效率。因此在Redis中设计了一种特殊的编码结构，这种结构就是`embstr`，它把`redisObject`请求头和SDS对象紧紧地挨到一起，然后整体放到一个缓存行中去，这样，在查询的时候就可以直接从缓存中获取到相关的数据，提高了查询的效率。
 
-![这里写图片描述](/png/redis/redis-embstr-raw.png)
+![这里写图片描述](http://pj9b1v2hm.bkt.clouddn.com/redis-embstr-raw.png)
 
 在上边也讲了，缓存行一般的长度为64字节，如果想要把对象存到缓存行中，首先整体的长度不得超过64字节，每个请求头`redisObject`占用16字节，而SDS至少有3个自己被占用，同时Redis中会以`\0`来作为结尾的标志，也占用一个字节，因此，留给可输入的数据的长度就成了（64-16-3-1）=44字节，当存储的数据长度超过了44字节，就会变成`raw`的编码形式。
 
-![这里写图片描述](/png/redis/redis-ziplist.png)
+![这里写图片描述](http://pj9b1v2hm.bkt.clouddn.com/redis-ziplist.png)
 本篇博客就先讲这么多，目前正处于研究阶段，后续会持续更新。。。
 

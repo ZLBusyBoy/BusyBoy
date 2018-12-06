@@ -21,6 +21,9 @@
 
  - ### JVM
    - [CPU过高的分析与解决方案](https://www.busyboy.club/#/JavaJ2EE/JVM/SolveCPUHigher)
+   
+ - ### 多线程
+    - [多线程----Immutable VS Mutable （可变与不可变)](https://www.busyboy.club/#JavaJ2EE/Concurrent/Immutable)
 
   
 
